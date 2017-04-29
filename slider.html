@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>轮播效果</title>
+    <link rel="shortcut icon" href="ico.ico" type="image/x-icon">
+    <link rel="stylesheet" media="screen" href="css/slider.css">
+  </head>
+  <body>
+    <div class="container">
+
+      <h3>经典</h3>
+      <ul id="classic" class="slider">
+        <li class="pink active"></li>
+        <li class="blue"></li>
+        <li class="green"></li>
+        <li class="yellow pre"></li>
+        <ul class="nav">
+          <li class="nav-active"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </ul>
+
+
+    </div>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script>
+    (function(){
+      var a = $('#classic>li'),
+          b = $('#classic .nav li'),
+          c = a.length,
+          d = 0,
+          e = setInterval(classic, 3000);
+
+      function classic(x){
+        d = x!=null? x: ++d;
+        d = d < c? d: 0;
+        a.removeClass('active pre');
+        b.removeClass('nav-active');
+        a.eq(d-1<0?c-1:d-1).addClass('pre');
+        a.eq(d).addClass('active');
+        b.eq(d).addClass('nav-active');
+
+      }
+
+      b.on('click', function(){
+        clearInterval(e);
+        classic($(this).index());
+        e = setInterval(classic, 3000);
+      });
+
+    })();
+  </script>
+  </body>
+</html>
