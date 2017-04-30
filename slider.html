@@ -10,48 +10,45 @@
     <div class="container">
 
       <h3>经典</h3>
-      <ul id="classic" class="slider">
-        <li class="pink active"></li>
-        <li class="blue"></li>
-        <li class="green"></li>
-        <li class="yellow pre"></li>
-        <ul class="nav">
-          <li class="nav-active"></li>
+      <div class="slider">
+        <ul class="classic">
+          <li class="pink"></li>
+          <li class="blue"></li>
+          <li class="green"></li>
+          <li class="yellow"></li>
+        </ul>
+        <ul class="classic-nav">
+          <li class="active"></li>
           <li></li>
           <li></li>
           <li></li>
         </ul>
-      </ul>
+      </div>
 
 
     </div>
   <script src="js/jquery-3.1.1.min.js"></script>
   <script>
+
     (function(){
-      var a = $('#classic>li'),
-          b = $('#classic .nav li'),
-          c = a.length,
-          d = 0,
-          e = setInterval(classic, 3000);
-
-      function classic(x){
-        d = x!=null? x: ++d;
-        d = d < c? d: 0;
-        a.removeClass('active pre');
-        b.removeClass('nav-active');
-        a.eq(d-1<0?c-1:d-1).addClass('pre');
-        a.eq(d).addClass('active');
-        b.eq(d).addClass('nav-active');
-
-      }
-
-      b.on('click', function(){
-        clearInterval(e);
-        classic($(this).index());
-        e = setInterval(classic, 3000);
-      });
-
+      var navs = $('ul.classic-nav li'),
+          len = navs.length,
+          items = $('ul.classic').css('width', len + '00%'),
+          i = 1,
+          classic = function(){
+            navs.removeClass('active').eq(i).addClass('active');
+            items.css('transform', 'translateX(' + (-i) * 100/len + '%)');
+            i = i < len-1? ++i: 0;
+          },
+          timer = setInterval(classic, 3000);
+        navs.on('click', function(){
+          clearInterval(timer);
+          i = $(this).index();
+          classic();
+          timer = setInterval(classic, 3000);
+        });
     })();
+    
   </script>
   </body>
 </html>
