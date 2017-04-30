@@ -21,7 +21,7 @@ li{list-style: none;}
 .blue{background: #91b2fb;}
 .green{background: #8ff77c;}
 .yellow{background: #fcff50;}
-.slider{position: relative;width: 100%;overflow-x: hidden;}
+.slider{position: relative;width: 100%;overflow-x: hidden;margin-bottom: 200px;}
 
 
 .classic{
@@ -49,4 +49,38 @@ li{list-style: none;}
 .classic-nav li:hover{
   cursor: pointer;
   transform: scaleX(1.7);
+}
+
+.a3d{
+  height: 300px;
+  width: 100%;
+  transform-style: preserve-3d;
+  perspective: 600px;
+  perspective-origin: 50% 50%;
+}
+.a3d li{
+  position: absolute;
+  left: 15%;
+  top: 15%;
+  width: 70%;
+  height: 70%;
+  transition: all .6s ease;
+}
+.a3d-active{transform: translateZ(50px);}
+.a3d .a3d-pre{left: 0;}
+.a3d .a3d-next{left: 30%;}
+.a3d-nav{
+  text-align: center;
+}
+.a3d-nav li{
+  display: inline-block;
+  background: #666;
+  width: 20px;
+  height: 5px;
+  transition: all .3s ease;
+}
+.a3d-nav li:hover,
+.a3d-nav .active{
+  cursor: pointer;
+  transform: scaleY(2.6);
 }
