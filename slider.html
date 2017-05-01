@@ -9,13 +9,13 @@
   <body>
     <div class="container">
 
-      <h3>经典</h3>
+      <h3 id="classic">经典</h3>
       <div class="slider">
         <ul class="classic">
-          <li class="pink"></li>
-          <li class="blue"></li>
-          <li class="green"></li>
-          <li class="yellow"></li>
+          <li><img src="image/1.jpg"></li>
+          <li><img src="image/2.jpg"></li>
+          <li><img src="image/3.jpg"></li>
+          <li class="yellow"><img src="image/4.jpg"></li>
         </ul>
         <ul class="classic-nav">
           <li class="active"></li>
@@ -25,15 +25,41 @@
         </ul>
       </div>
 
-      <h3>3D (A)</h3>
+      <h3 id="a3d">3D (A)</h3>
       <div class="slider">
         <ul class="a3d">
-          <li class="pink a3d-active"></li>
-          <li class="blue a3d-next"></li>
-          <li class="green"></li>
-          <li class="yellow a3d-pre"></li>
+          <li class="a3d-active"><img src="image/1.jpg"></li>
+          <li class="a3d-next"><img src="image/2.jpg"></li>
+          <li><img src="image/3.jpg"></li>
+          <li class="a3d-pre"><img src="image/4.jpg"></li>
         </ul>
         <ul class="a3d-nav">
+          <li class="active"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+
+      <h3 id="tiles">瓷砖块铺入效果</h3>
+      <div class="slider">
+        <ul class="tiles-bg">
+          <li style="background-position: 0 0;"></li><li style="background-position: 25% 0;"></li>
+          <li style="background-position: 50% 0;"></li><li style="background-position: 75% 0;"></li>
+          <li style="background-position: 0 -100px;"></li><li style="background-position: 25% -100px;"></li>
+          <li style="background-position: 50% -100px;"></li><li style="background-position: 75% -100px;"></li>
+          <li style="background-position: 0 -200px;"></li><li style="background-position: 25% -200px;"></li>
+          <li style="background-position: 50% -200px;"></li><li style="background-position: 75% -200px;"></li>
+        </ul>
+        <ul class="tiles">
+          <li style="background-position: 0 0;" x="0" y="0"></li><li style="background-position: 0 -100px;" x="0" y="100px"></li>
+          <li style="background-position: 0 -200px;" x="0" y="200px"></li><li style="background-position: 25% 0;" x="25%" y="0"></li>
+          <li style="background-position: 25% -100px;" x="25%" y="100px"></li><li style="background-position: 25% -200px;" x="25%" y="200px"></li>
+          <li style="background-position: 50% 0;" x="50%" y="0"></li><li style="background-position: 50% -100px;" x="50%" y="100px"></li>
+          <li style="background-position: 50% -200px;" x="50%" y="200px"></li><li style="background-position: 75% 0;" x="75%" y="0"></li>
+          <li style="background-position: 75% -100px;" x="75%" y="100px"></li><li style="background-position: 75% -200px;" x="75%" y="200px"></li>
+        </ul>
+        <ul class="tiles-nav">
           <li class="active"></li>
           <li></li>
           <li></li>

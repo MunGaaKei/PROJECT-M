@@ -9,7 +9,7 @@
     body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,figure,fieldset,legend,button,img,input,textarea,th,td{margin:0;padding:0;border:0;}
     a{color: #666;text-decoration: none;transition: all .3s ease;}
     a:hover{color: #000;}
-    body{font-family: "Microsoft Yahei";}
+    body{font-family: "Microsoft Yahei";color: #666;}
     ::selection{background: #222;color: #fff;}
     ::-webkit-scrollbar{width: 3px;height: 3px;transition: all .3s ease;}
     ::-webkit-scrollbar:hover{width: 6px;height: 6px;}
@@ -24,26 +24,45 @@
       max-width: 666px;
       width: 100%;
       margin: 100px auto;
+      padding: 10px 60px;
+    }
+    .title{
+      padding: 10px;
+      font-size: 25px;
+      animation: title 1s ease 0s;
     }
     .list li{
+      float: left;
+      clear: both;
       padding: 10px;
       font-weight: bold;
+      transform: translateX(0);
+      opacity: 1;
+      animation: list 2s ease 0s;
+      list-style: decimal-leading-zero;;
     }
-    .list li:first-child{
-      font-size: 25px;
+
+    @keyframes list {
+      0%{transform: translateX(80px);opacity: 0;}
+      100%{transform: translateX(0);opacity: 1;}
     }
+    @keyframes title {
+      0%{transform: translateY(-20px);opacity: 0;}
+      100%{transform: translateY(0);opacity: 1;}
+    }
+
     </style>
   </head>
   <body>
     <div class="content">
+      <h3 class="title"><a href="https://gotpicasso.cn">我的主页</a></h3>
       <ul class="list">
-        <li><a href="https://gotpicasso.cn">我的主页</a></li>
-        <li><a href="slider.html" target="_blank">轮播图</a></li>
+
+        <li><a href="slider.html" target="_blank">轮播效果</a></li>
         <li><a href="cvs-starry.html" target="_blank">CANVAS下的星空</a></li>
         <li><a href="https://mungaakei.github.io/pica-editor/" target="_blank">文本编辑器</a></li>
-
       </ul>
-
     </div>
+
   </body>
 </html>
