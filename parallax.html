@@ -33,7 +33,7 @@
       text-align: center;
       width: 100%;
     }
-    .trees{
+    .trees,.axis{
       position: relative;
       height: 100%;
     }
@@ -63,12 +63,32 @@
       left: 55%;
       top: 150px;
     }
-    .grass{
+    .axis{
+      background: #0B0A17;
+      color: #fff;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    .axis-bg{
       position: absolute;
-      top: 100px;
-      bottom: 0;
-      width: 100%;
-      background: #eee;
+      left: 50%;
+      top: 50%;
+      height: 360px;
+      width: 360px;
+      margin-left: -180px;
+      margin-top: -180px;
+      background: #e8ff92;
+      border-radius: 50%;
+      transform: translateZ(150px);
+    }
+    .axis img{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 300px;
+      margin-left: -150px;
+      margin-top: -150px;
+      transform: translateZ(250px);
     }
 
 
@@ -78,15 +98,19 @@
   <body>
 
     <div class="content">
-      <div class="grass"></div>
       <div id="trees" class="trees">
+        <img src="image/tree2.png">
+        <img src="image/tree.png">
+        <img src="image/tree2.png">
+        <img src="image/tree.png">
+        <img src="image/tree.png">
+        <h3 class="title">平移</h3>
+      </div>
+      <div id="axis" class="axis">
+        <img src="image/tree.png">
+        <div class="axis-bg"></div>
 
-        <img src="image/tree2.png">
-        <img src="image/tree.png">
-        <img src="image/tree2.png">
-        <img src="image/tree.png">
-        <img src="image/tree.png">
-        <h3 class="title">鼠标移动视差效果</h3>
+        <h3 class="title">轴动</h3>
       </div>
     </div>
 
@@ -95,7 +119,10 @@
     <script src="js/jquery-3.1.1.min.js"></script>
     <script>
       (function(){
-        var tree = $('#trees img'),
+        var trees = $('#trees img'),
+            axis = $('#axis'),
+            tree = $('#axis img'),
+            axisBg = $('#axis .axis-bg'),
             w = window.innerWidth,
             h = window.innerHeight;
         $('#trees').on('mousemove', function(e){
@@ -103,8 +130,14 @@
               x = 1 - 2 * e.clientX / w,
               y = 1 - 2 * e.clientY / h;
           while(i--){
-            $(tree[i]).css('transform', 'translate('+ (5-i)*10*x +'px,'+ 2*i*y +'px)');
+            $(trees[i]).css('transform', 'translate('+ (5-i)*10*x +'px,'+ 2*i*y +'px)');
           }
+        });
+        $('#axis').on('mousemove', function(e){
+          var x = 2 * e.clientX / w - 1,
+              y = 1 - 2 * (e.clientY - axis.offset().top) / h;
+          tree.css('transform','translate3d('+ 15*x + 'px,'+ 5*y +'px,250px) rotateX('+ 20*y +'deg) rotateY('+ 30*x +'deg)');
+          axisBg.css('transform','translateZ(150px) rotateX('+ 20*y +'deg) rotateY('+ 30*x +'deg)');
         });
         $(window).on('resize', function(){
           w = window.innerWidth;
