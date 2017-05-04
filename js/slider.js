@@ -51,14 +51,13 @@
       li = items.children('li'),
       img = li.children(),
       images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'],
-      bg = $('#tiles-a-bg'),
       i = 1, clock = true,
       len = images.length,
       tiles = function(){
         if(!clock) return false;
         clock = false;
         var j = 12, x, y;
-        items.addClass('tiles-a-trans');
+        items.addClass('tiles-trans');
         img.attr('src', 'image/'+ images[i]);
         navs.removeClass('active').eq(i).addClass('active');
         while (j--) {
@@ -70,8 +69,8 @@
               if(a === 0){
                 setTimeout(function(){
                   clock = true;
-                  bg.attr('src', 'image/'+ images[i-1 === -1? len-1: i-1]);
-                  items.removeClass('tiles-a-trans');
+                  $('#tiles-a-bg').attr('src', 'image/'+ images[i-1 === -1? len-1: i-1]);
+                  items.removeClass('tiles-trans');
                   li.css({'left': '100%', 'top': '100%'});
                 }, 1500);
               }
@@ -88,4 +87,47 @@
     tiles();
     timer = setInterval(tiles, 3000);
   });
+})();
+
+
+(function(){
+  var items = $('ul.tiles-b'),
+      images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'],
+      len = images.length,
+      img = $('ul.tiles-b li img'),
+      navs = $('ul.tiles-b-nav li'),
+      i = 1, clock = true,
+      tiles = function(){
+        if(!clock) return false;
+        clock = false;
+        var j = 12;
+        items.addClass('tiles-trans');
+        navs.removeClass('active').eq(i).addClass('active');
+        while(j--){
+          (function(a){
+            var x = img[a].getAttribute('x');
+            img.attr('src', 'image/'+ images[i]);
+            setTimeout(function(){
+              $('img[x="'+ x +'"]').css('opacity', 1);
+              if(a === 0){
+                setTimeout(function(){
+                  $('#tiles-b-bg').attr('src', 'image/'+ images[i-1 === -1? len-1: i-1]);
+                  items.removeClass('tiles-trans');
+                  img.css('opacity', 0);
+                  clock = true;
+                }, 1500);
+              }
+            }, x * 360);
+          })(j);
+        }
+        i = i < len-1? ++i: 0;
+      },
+      timer = setInterval(tiles, 3000);
+    navs.on('click', function(){
+      if($(this).hasClass('active')) return false;
+      clearInterval(timer);
+      i = $(this).index();
+      tiles();
+      timer = setInterval(tiles, 3000);
+    });
 })();

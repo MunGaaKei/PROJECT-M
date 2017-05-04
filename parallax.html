@@ -26,6 +26,7 @@
       bottom: 0;
       right: 0;
       overflow-x: hidden;
+      transition: all .3s ease;
     }
     .title{
       position: absolute;
@@ -36,6 +37,7 @@
     .trees,.axis{
       position: relative;
       height: 100%;
+      background: #e8ff92;
     }
     .trees img{position: absolute;}
     .trees img:nth-child(1){
@@ -123,6 +125,7 @@
             axis = $('#axis'),
             tree = $('#axis img'),
             axisBg = $('#axis .axis-bg'),
+            scroll = true,
             w = window.innerWidth,
             h = window.innerHeight;
         $('#trees').on('mousemove', function(e){
@@ -142,6 +145,13 @@
         $(window).on('resize', function(){
           w = window.innerWidth;
           h = window.innerHeight;
+        });
+        document.addEventListener('mousewheel', function(e){
+          e.preventDefault();
+          if(!scroll) return false;
+          scroll = false;
+          setTimeout(function(){ scroll = true; }, 1000);
+          $('.content').stop().animate({scrollTop: e.wheelDelta < 0? h: 0});
         });
       })();
     </script>
