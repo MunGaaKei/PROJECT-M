@@ -22,33 +22,33 @@
     .content{
       width: 100%;
       margin: 1rem auto;
-      padding: 10px 0;
-      text-align: center;
+      padding: 2rem;
       overflow: hidden;
+      max-width: 600px;
     }
     .title{
-      padding: 10px 0;
-      margin-bottom: 2rem;
+      padding: 0rem 1rem;
+      border-left: 6px solid #dd5862;
+      margin: 0 0 2rem .4rem;
       font-size: 2rem;
+      line-height: 1.2;
       -webkit-animation: title 1s ease 0s;
       animation: title 1s ease 0s;
     }
     .list li{
-      clear: both;
-      width: 100%;
-      margin: 0 auto;
-      padding: 10px;
+      padding: .625rem 1rem;
       font-weight: bold;
       transform: translateX(0);
       opacity: 1;
+      transition: all .3s ease;
       -webkit-animation: list 1s ease 0s;
       animation: list 1s ease 0s;
-    }
-    @media (min-width: 1000px){
-      .list li{max-width: 600px;}
+      border-left: 6px solid transparent;
     }
     .list li:hover{
       background-color: #eee;
+      transform: translateX(.4rem);
+      border-color: #dd5862;
     }
     @-webkit-keyframes list {
       0%{transform: translateY(40px);opacity: 0;}
