@@ -57,11 +57,12 @@
     </ul>
   <script>
     document.addEventListener('click', function(e){
-      ripple(e.target, 'LI');
+      ripple(e, 'LI');
     });
 
-    function ripple(target, tag){
-      var ripple = target.querySelector('div.ripple');
+    function ripple(e, tag){
+      var target = e.target,
+          ripple = target.querySelector('div.ripple');
       if(!ripple){
         ripple = document.createElement('div');
         ripple.className = 'ripple';
