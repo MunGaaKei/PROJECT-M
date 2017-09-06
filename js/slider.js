@@ -58,7 +58,7 @@
         clock = false;
         var j = 12, x, y;
         items.addClass('tiles-trans');
-        img.attr('src', 'image/'+ images[i]);
+        img.attr('src', '../image/'+ images[i]);
         navs.removeClass('active').eq(i).addClass('active');
         while (j--) {
           x = li[j].getAttribute('x');
@@ -69,7 +69,7 @@
               if(a === 0){
                 setTimeout(function(){
                   clock = true;
-                  $('#tiles-a-bg').attr('src', 'image/'+ images[i-1 === -1? len-1: i-1]);
+                  $('#tiles-a-bg').attr('src', '../image/'+ images[i-1 === -1? len-1: i-1]);
                   items.removeClass('tiles-trans');
                   li.css({'left': '100%', 'top': '100%'});
                 }, 1500);
@@ -106,12 +106,12 @@
         while(j--){
           (function(a){
             var x = img[a].getAttribute('x');
-            img.attr('src', 'image/'+ images[i]);
+            img.attr('src', '../image/'+ images[i]);
             setTimeout(function(){
               $('img[x="'+ x +'"]').css('opacity', 1);
               if(a === 0){
                 setTimeout(function(){
-                  $('#tiles-b-bg').attr('src', 'image/'+ images[i-1 === -1? len-1: i-1]);
+                  $('#tiles-b-bg').attr('src', '../image/'+ images[i-1 === -1? len-1: i-1]);
                   items.removeClass('tiles-trans');
                   img.css('opacity', 0);
                   clock = true;
