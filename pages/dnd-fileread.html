@@ -20,16 +20,15 @@
     li{list-style: none;}
     .clearfix:after{ content:" "; display:block; height:0; clear:both; visibility: hidden;}
 
-
     .box{
         position: relative; float: left;
         height: 300px; width: 48%; margin: 10px 0 10px 1.3%;
         background: #eee; color: #aaa;
         line-height: 300px; text-align: center; font-size: 1.5rem;
-        overflow: hidden; transition: background .2s ease; cursor: default;
+        overflow: hidden; transition: background-color .2s ease; cursor: default;
     }
     .box:hover{
-        background: #dadada;
+        background-color: #dadada;
     }
     .box input{
         position: absolute;
@@ -38,12 +37,20 @@
     }
     .row{
         position: relative;
-        padding: 10px 24px 10px 60px; margin-bottom: 10px; min-height: 70px;
-        background: #ddd;
+        padding: 10px 24px 10px 60px; margin: 0 1.3% 10px; min-height: 70px;
+        background: #eee;
+    }
+    .files li{
+        float: left;
+        padding: 2px 6px; margin-right: 6px; border-radius: 3px;
+        background: #ddd; cursor: pointer; border: 1px solid #aaa;
+    }
+    .files li:hover,
+    .files .active{
+        background: #bbb;
     }
     .row img{
-        display: block;
-        max-height: 300px; margin: 0 auto;
+        display: block; margin: 10px auto;
     }
     .title{
         position: absolute; left: 6px; top: 10px;
@@ -60,7 +67,7 @@
     }
     .file-content{
         padding: 10px;
-        background: #ccc;
+        background: #ddd;
         border: 1px solid #bbb; border-radius: 4px;
     }
 
@@ -71,15 +78,17 @@
     <div class="clearfix">
         <div id="box" class="box">请将文件拖放至此 :)</div>
         <div class="box">
-            点击选择文件上传 :)
-            <a href="javascript:;"><input id="file" type="file"></a>
+            <p>点击选择文件上传 :)</p>
+            <a href="javascript:;"><input id="file" type="file" multiple="true"></a>
         </div>
     </div>
 
     <div class="row">
         <span class="title">文件信息</span>
+        <ul id="files" class="files clearfix">选择任一种方式上传，支持多文件上传。</ul>
         <div class="info">
-            <p><b>文件名称：</b><span>请先上传文件</span></p>
+            <p><b>文件数量：</b><span>0</span></p>
+            <p><b>文件名称：</b><span>null</span></p>
             <p><b>类型：</b><span>undefined</span></p>
             <p><b>大小：</b><span>0</span><span>bytes</span></p>
             <p><b>修改时间：</b><span>00:00</span></p>
@@ -88,14 +97,14 @@
     <div class="row">
         <span class="title">文件预览</span>
         <img id="img">
-        <p id="text" class="file-content">上传文件后查看文件内容<br><br>: )</p>
+        <p id="text" class="file-content">上传文件后查看文件内容 : )</p>
     </div>
 
 
 <script>
 
     var box = document.getElementById('box'),
-        file = null,
+        files = null,
         type = 0,
         span = document.querySelectorAll('.info span');
         reader = new FileReader();
@@ -111,49 +120,32 @@
     box.addEventListener('drop', function(e){
         e.preventDefault();
         box.textContent = '请将文件拖放至此 :)';
-        file = e.dataTransfer.files[0];
 
-        span[0].textContent = file.name;
-        span[1].textContent = readType(file.type, file.name);
-        span[2].textContent = file.size;
-        span[4].textContent = file.lastModifiedDate.toLocaleString();
-
-        if(file.type.indexOf('image') > -1){
-            type = 1;
-            reader.readAsDataURL(file);
-        } else {
-            type = 2;
-            reader.readAsText(file);
-        }
-
+        files = e.dataTransfer.files;
+        formatNavs(files.length);
+        span[0].textContent = files.length;
+        readFile(files[0]);
     });
 
     document.getElementById('file').addEventListener('change', function(e){
-        console.log(this.files[0]);
+        files = this.files;
+        var l = files.length;
+        if(!l) return;
+        formatNavs(l);
+        span[0].textContent = l;
+        readFile(files[0]);
+    });
 
-        file = this.files[0];
-        if(!file){
-            return;
+    document.getElementById('files').addEventListener('click', function(e){
+        var el = e.target;
+        if( el.tagName == 'LI' && !el.classList.contains('active')){
+            document.querySelector('#files .active').classList.remove('active');
+            el.classList.add('active');
+            readFile(files[el.dataset.i]);
         }
-
-        span[0].textContent = file.name;
-        span[1].textContent = readType(file.type, file.name);
-        span[2].textContent = file.size;
-        span[4].textContent = file.lastModifiedDate.toLocaleString();
-
-        if(file.type.indexOf('image') > -1){
-            type = 1;
-            reader.readAsDataURL(file);
-        } else {
-            type = 2;
-            reader.readAsText(file);
-        }
-
     });
 
     reader.addEventListener('load', function(e){
-        console.log(e);
-
         var img = document.getElementById('img'),
             text = document.getElementById('text');
 
@@ -164,7 +156,6 @@
             img.removeAttribute('src');
             text.textContent = e.target.result;
         }
-
     });
 
     function readType(type, name){
@@ -182,6 +173,31 @@
         return '识别失败 :(';
     }
 
+    function readFile(file){
+
+        span[1].textContent = file.name;
+        span[2].textContent = readType(file.type, file.name);
+        span[3].textContent = file.size;
+        span[5].textContent = file.lastModifiedDate.toLocaleString();
+
+        if(file.type.indexOf('image') > -1){
+            type = 1;
+            reader.readAsDataURL(file);
+        } else if(file.type.indexOf('text') > -1 || file.type.indexOf('javascript') > -1 || file.type.indexOf('json') > -1){
+            type = 2;
+            reader.readAsText(file);
+        } else {
+            document.getElementById('text').textContent = '属于禁止读取的文件类型 :(';
+        }
+    }
+
+    function formatNavs(l){
+        var html = '<li class="active" data-i="0">文件 1</li>';
+        for(var i = 1; i< l; i++){
+            html += '<li data-i="'+ i +'">文件 '+ (i+1) +'</li>';
+        }
+        document.getElementById('files').innerHTML = html;
+    }
 
 </script>
 </body>
