@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Excel 表格读取</title>
+    <link rel="shortcut icon" href="../ico.ico" type="image/x-icon">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <style>
+    article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
+    body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,figure,fieldset,legend,button,img,input,textarea,th,td{margin:0;padding:0;border:0;}
+    a{text-decoration: none;transition: all .3s ease;color: #666;}
+    a:hover{color: #333;}
+    body{font: 14px/20px "Alright Sans LP","Avenir Next","Helvetica Neue","Microsoft YaHei",sans-serif;color: #666;}
+    ::selection{background: #222;color: #fff;}
+    ::-webkit-scrollbar{width: 3px;height: 3px;}
+    ::-webkit-scrollbar-button{display: none;}
+    ::-webkit-scrollbar-thumb{ background: #aaa; }
+    ::-webkit-scrollbar-corner{display: none;}
+    input{ font: 15px/20px "Alright Sans LP","Avenir Next","Helvetica Neue","Microsoft YaHei",sans-serif; }
+    li{list-style: none;}
+    .clearfix:after{ content:" "; display:block; height:0; clear:both; visibility: hidden;}
+
+    .box{
+        position: relative; margin: 50px auto;
+        width: 30%; min-width: 300px; height: 150px; text-align: center; line-height: 150px;
+        background-color: #eee; color: #aaa; font-size: 20px; border-radius: 4px;
+        transition: background-color .2s ease;
+    }
+    .box:hover{ background-color: #ddd; }
+    .box input{
+        position: absolute;
+        left: 0; top: 0; width: 100%; bottom: 0;
+        cursor: default; opacity: 0;
+    }
+    .info{
+        position: relative;
+        padding: 20px;
+        background: #fafafa; border-top: 2px solid #ddd;
+    }
+    .info ul{
+        margin: 10px auto;
+    }
+    .info li{
+        float: left;
+        padding: 4px 6px; margin: 0 6px 6px 0;
+        cursor: default;
+        border: 1px solid #aaa; border-radius: 3px;
+        background: #eee;
+    }
+    .info li:hover,
+    .info li.active{
+        background: #ccc;
+    }
+
+    .progress{
+        position: absolute; top: -2px; left: 0;
+        height: 2px; width: 0;
+        background: #aaa;
+        transition: all 1s ease;
+    }
+
+    .table{
+        width: 100%; max-width: 666px;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+    .table tr:not(:first-child){ border-top: 1px solid #eee; }
+    .table td:hover{ background: #e6e6e6; }
+    .table thead{ font-weight: bold; }
+    .table td{ padding: 8px 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <p>点击上传选择表格文件 : )</p>
+        <input id="file" type="file">
+    </div>
+
+
+    <div class="info">
+        <div id="progress" class="progress"></div>
+        <ul id="nav" class="clearfix"></ul>
+        <table id="table" class="table"></table>
+    </div>
+
+<script src="../js/xlsx.full.min.js"></script>
+<script> document.getElementById('progress').style.width = '70%'; </script>
+<script>
+
+    var reader = new FileReader(),
+        sheets = null,
+        files = null;
+
+    document.getElementById('file').addEventListener('change', function(){
+
+        document.getElementById('progress').style.cssText = 'transition: none; width: 0%';
+
+        files = this.files;
+        if(files.length < 1) return;
+
+        var suffix = files[0].name.split('.');
+        if(suffix[suffix.length - 1] !== 'xlsx'){
+            document.getElementById('table').innerHTML = '>> 上传的不是表格文件xlsx';
+            document.getElementById('nav').innerHTML = '';
+            return;
+        }
+        reader.readAsBinaryString(files[0]);
+    });
+
+    reader.addEventListener('load', function(e){
+        var file = e.target.result;
+        document.getElementById('progress').style.cssText = 'transition: all 1s ease; width: 100%';
+        readSheets(file);
+    });
+
+    document.getElementById('nav').addEventListener('click', function(e){
+        var el = e.target;
+        if(el.tagName != 'LI' || el.className == 'active') return;
+        document.getElementsByClassName('active')[0].classList.remove('active');
+        el.className = 'active';
+        readSheet(XLSX.utils.sheet_to_json(sheets.Sheets[sheets.SheetNames[el.dataset.i]]));
+    });
+
+    function readSheets(file){
+        sheets = XLSX.read(file, {
+            type: 'binary'
+        });
+        formatNavs(sheets.SheetNames.length);
+        readSheet(XLSX.utils.sheet_to_json(sheets.Sheets[sheets.SheetNames[0]]));
+    }
+
+    function readSheet(sheet){
+        var html = '',
+            l = sheet.length,
+            row = sheet[0],
+            tds = '',
+            i = 0;
+
+        for(var key in row){ tds += '<td>'+ key +'</td>'; }
+
+        html = '<thead><tr>'+ tds +'</tr></thead><tbody>';
+
+        for(; i< l; i++){
+            row = sheet[i];
+            tds = '<tr>';
+            for(key in row){ tds += '<td>'+ row[key] +'</td>'; }
+            html += tds + '</tr>';
+        }
+
+        document.getElementById('table').innerHTML = html + '</tbody>';
+    }
+
+    function formatNavs(l){
+        var html = '<li class="active" data-i="0">' + sheets.SheetNames[0] + '</li>',
+            i = 1;
+        for(; i< l; i++){
+            html += '<li data-i="'+ i +'">'+ sheets.SheetNames[i] +'</li>';
+        }
+        document.getElementById('nav').innerHTML = html;
+    }
+
+    function toBinary(data) { //文件流转BinaryString
+        var o = "",
+            l = 0,
+            w = 10240;
+        for(; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
+        o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+        return o;
+    }
+
+</script>
+<script> document.getElementById('progress').style.width = '100%'; </script>
+</body>
+</html>
