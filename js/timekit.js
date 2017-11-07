@@ -76,6 +76,7 @@
                 date.setDate(date.getDate() + (param < 0? -7: 7));
             }
             this.time = date;
+            this.fromTimeTo = setFromTimeTo();
 
             return this;
         }

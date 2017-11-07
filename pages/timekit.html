@@ -105,17 +105,17 @@
     // 0: avail    1: unavail    2: selected    3: mine    4: disabled
 
     Timekit.init('#timekit', {}, function(){
-        document.getElementById('now').innerHTML = Timekit.fromTimeTo[0] + ' - ' + Timekit.fromTimeTo[1];
+        document.getElementById('now').innerHTML = Timekit.fromTimeTo.join(' - ');
     }).write(data);
 
     document.getElementById('prev').addEventListener('click', function(){
         Timekit.switchTime(-1).write(data);
-
+        document.getElementById('now').innerHTML = Timekit.fromTimeTo.join(' - ');
     });
 
     document.getElementById('next').addEventListener('click', function(){
         Timekit.switchTime(1).write(data);
-
+        document.getElementById('now').innerHTML = Timekit.fromTimeTo.join(' - ');
     });
 
 
