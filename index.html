@@ -1,100 +1,129 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>平时写的小东西</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="ico.ico" type="image/x-icon">
-    <style>
-    article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
-    body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,figure,fieldset,legend,button,img,input,textarea,th,td{margin:0;padding:0;border:0;}
-    a{color: #666;text-decoration: none;transition: all .3s ease;}
-    body{font-family: "Microsoft Yahei";color: #666;}
-    ::selection{background: #222;color: #fff;}
-    ::-webkit-scrollbar{width: 3px;height: 3px;}
-    ::-webkit-scrollbar-button{display: none;}
-    ::-webkit-scrollbar-thumb{ background: #aaa; }
-    ::-webkit-scrollbar-corner{display: none;}
-    li{list-style: none;}
-    .clearfix:after{ content:" "; display:block; height:0; clear:both; visibility: hidden;}
-    .clearfix{*zoom:1;}/*IE/7/6*/
+<head>
+<meta charset="utf-8">
+<title>mungaakei's projects</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+<link rel="shortcut icon" href="ico.ico" type="image/x-icon">
+<style>
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,figure,fieldset,legend,button,img,input,textarea,th,td{margin:0;padding:0;border:0;}
+a{color: #666;text-decoration: none;transition: all .3s ease;}
+body{font-family: "Microsoft Yahei";color: #666;}
+::selection{background: #222;color: #fff;}
+::-webkit-scrollbar{width: 3px;height: 3px;}
+::-webkit-scrollbar-button{display: none;}
+::-webkit-scrollbar-thumb{ background: #aaa; }
+::-webkit-scrollbar-corner{display: none;}
+li{list-style: none;}
+.clearfix:after{ content:" "; display:block; height:0; clear:both; visibility: hidden;}
+.clearfix{*zoom:1;}/*IE/7/6*/
 
-    .content{
-      width: 100%;
-      margin: 1rem auto;
-      padding: 2rem;
-      overflow: hidden;
-      max-width: 600px;
-    }
-    .title{
-      padding: 0rem 1rem;
-      border-left: 6px solid #dd5862;
-      margin: 0 0 2rem .4rem;
-      font-size: 2rem;
-      line-height: 1.2;
-      -webkit-animation: title 1s ease 0s;
-      animation: title 1s ease 0s;
-      font-family: 'Segoe Print';
-    }
-    .title:hover a{
-      color: #dd5862;
-    }
-    .list li{
-      padding: .625rem 1rem;
-      font-weight: bold;
-      transform: translateX(0);
-      opacity: 1;
-      transition: all .3s ease;
-      -webkit-animation: list 1s ease 0s;
-      animation: list 1s ease 0s;
-      border-left: 6px solid transparent;
-    }
-    .list li:hover{
-      background-color: #eee;
-      transform: translateX(.4rem);
-      border-color: #dd5862;
-    }
-    @-webkit-keyframes list {
-      0%{transform: translateY(40px);opacity: 0;}
-      100%{transform: translateY(0);opacity: 1;}
-    }
-    @keyframes list {
-      0%{transform: translateY(40px);opacity: 0;}
-      100%{transform: translateY(0);opacity: 1;}
-    }
-    @-webkitkeyframes title {
-      0%{transform: translateY(-20px);opacity: 0;}
-      100%{transform: translateY(0);opacity: 1;}
-    }
-    @keyframes title {
-      0%{transform: translateY(-20px);opacity: 0;}
-      100%{transform: translateY(0);opacity: 1;}
-    }
+.content{
+    width: 100%; box-sizing: border-box;
+    margin: 1rem auto; padding: 2rem;
+    overflow: hidden;
+    max-width: 600px;
+    -ms-user-select: none; user-select: none;
+}
+.list li{
+    position: relative;
+    padding: 6px; margin: 6px 0;
+    font-weight: bold;
+    -webkit-transition: all .2s ease; transition: all .2s ease;
+    border-radius: 2px;
+}
+.list li:after{
+    content: '\20'; display: block;
+    position: absolute; top: 50%; right: 102%;
+    width: 1.5rem; height: 1px; background: transparent;
+    -webkit-transition: all .2s ease; transition: all .2s ease;
+}
+.list li:hover:after{
+    background: #dd5862; right: 100%;
+}
+.list li:hover{ color: #dd5862; }
+.spliter{
+    height: 100px; margin: 100px 0 0;
+    position: relative;
+}
+.spliter p{ position: absolute; }
+.p1, .p2{
+    right: 0; top: 20px;
+    width: 30%; border-bottom: 1px solid #ccc;
+}
+.p2{
+    width: 60%; top: 50px;
+    border-color: #aaa;
+}
+.p3{
+    top: 30px; left: 0;
+    width: 50%;
+    border-bottom: 2px solid #888;
+}
+.main li{
+    float: left;
+    width: 100px; margin-right: 2rem;
+    text-align: center;
+    -webkit-transition: background .2s ease; transition: background .2s ease;
+}
+.main img{
+    display: block;
+    width: 100%; margin-bottom: .5rem;
+    border-radius: 50%;
+}
+.main li:hover img{
+    background: #eee;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+}
+.main b{
+    color: #888; font-family: "Segoe Print";
+    -webkit-transition: color .2s ease; transition: color .2s ease;
+}
+.main li:hover b{ color: #222; }
+.main a{ cursor: default; }
 
-    </style>
-  </head>
-  <body>
-    <div class="content">
-      <h3 class="title"><a href="https://gotpicasso.cn">HOME</a></h3>
-      <ul class="list">
-        <a href="pages/timekit.html" target="_blank"><li>Timekit 时间安排表</li></a>
+</style>
+</head>
+<body>
+<div class="content">
+    <ul class="main clearfix">
+        <li>
+            <a href="https://www.mungaakei.cn/">
+                <img src="image/me.png">
+                <b>我</b>
+            </a>
+        </li>
+        <li>
+            <a href="https://mungaakei.github.io/masiv/">
+                <img src="image/masiv.png">
+                <b>MASIV</b>
+            </a>
+        </li>
+        <li>
+            <a href="https://mungaakei.github.io/vn/">
+                <img src="image/vn.png">
+                <b>vn</b>
+            </a>
+        </li>
+    </ul>
+    <div class="spliter">
+        <p class="p1"></p>
+        <p class="p2"></p>
+        <p class="p3"></p>
+    </div>
+    <ul class="list">
+        <a href="pages/timekit.html" target="_blank"><li>Timekit</li></a>
         <a href="pages/xlsx-reader.html" target="_blank"><li>Excel 表格读取 <small>[基于xlsx.js]</small></li></a>
         <a href="pages/dnd-fileread.html" target="_blank"><li>拖拽上传 - 文件框上传 读取文件数据</li></a>
-        <a href="https://mungaakei.github.io/pHlat/" target="_blank"><li>pHlat Admin</li></a>
-        <a href="https://mungaakei.github.io/brtsoftware/" target="_blank"><li>博睿通主页重构 <a href="http://www.brtsoftware.com/" target="_blank"><small>[原址]</small></a></li></a>
         <a href="https://mungaakei.github.io/meeTree/" target="_blank"><li>meeTree <small>[基于jQuery的树插件]</small></li></a>
         <a href="https://mungaakei.github.io/pica-editor/" target="_blank"><li>富文本编辑器</li></a>
         <a href="https://github.com/MunGaaKei/pChat" target="_blank"><li>多人聊天室 <small>[vue\socket.io\node\ws]</small></li></a>
-        <a href="https://github.com/MunGaaKei/pMarket-vue-cli" target="_blank"><li>小型交易平台 <small>[vue-cli]</small></li></a>
         <a href="pages/cvs-starry.html" target="_blank"><li>CANVAS下的星空</li></a>
         <a href="pages/slider.html" target="_blank"><li>轮播</li></a>
         <a href="pages/parallax.html" target="_blank"><li>鼠标移动视差</li></a>
-        <a href="pages/magnifier.html" target="_blank"><li>图片放大镜</li></a>
-        <a href="pages/cube.html" target="_blank"><li>立方体</li></a>
-        <!-- <a href="pages/audio.html" target="_blank"><li>音乐播放器</li></a> -->
-        <!-- <a href="pages/ripple.html" target="_blank"><li>鼠标点击蔓延</li></a> -->
-      </ul>
-    </div>
+    </ul>
+</div>
 
-  </body>
+</body>
 </html>
