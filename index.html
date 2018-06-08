@@ -44,37 +44,41 @@ li{list-style: none;}
 }
 .list li:hover{ color: #dd5862; }
 .spliter{
-    height: 100px; margin: 100px 0 0;
+    height: 50px; margin: 100px 0 0;
     position: relative;
 }
 .spliter p{ position: absolute; }
 .p1, .p2{
-    right: 0; top: 20px;
+    right: 0; top: 10px;
     width: 30%; border-bottom: 1px solid #ccc;
 }
 .p2{
-    width: 60%; top: 50px;
+    width: 60%; top: 30px;
     border-color: #aaa;
 }
 .p3{
-    top: 30px; left: 0;
+    top: 20px; left: 0;
     width: 50%;
-    border-bottom: 2px solid #888;
+    border-bottom: 1px solid #888;
+}
+.main{
+    display: -ms-flex; display: flex;
 }
 .main li{
-    float: left;
-    width: 100px; margin-right: 2rem;
+    width: 80px; margin-right: 2rem;
     text-align: center;
     -webkit-transition: background .2s ease; transition: background .2s ease;
 }
 .main img{
     display: block;
-    width: 100%; margin-bottom: .5rem;
-    border-radius: 50%;
+    width: 100%; margin: .5rem auto;
+    border-radius: 10px;
+    -webkit-transition: all .2s ease; transition: all .2s ease;
 }
 .main li:hover img{
-    background: #eee;
     background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    border-radius: 4px;
+    width: 96%;
 }
 .main b{
     color: #888; font-family: "Segoe Print";
@@ -113,7 +117,7 @@ li{list-style: none;}
         <p class="p3"></p>
     </div>
     <ul class="list">
-        <a href="pages/timekit.html" target="_blank"><li>Timekit</li></a>
+        <!-- <a href="pages/timekit.html" target="_blank"><li>Timekit</li></a> -->
         <a href="pages/xlsx-reader.html" target="_blank"><li>Excel 表格读取 <small>[基于xlsx.js]</small></li></a>
         <a href="pages/dnd-fileread.html" target="_blank"><li>拖拽上传 - 文件框上传 读取文件数据</li></a>
         <a href="https://mungaakei.github.io/meeTree/" target="_blank"><li>meeTree <small>[基于jQuery的树插件]</small></li></a>
